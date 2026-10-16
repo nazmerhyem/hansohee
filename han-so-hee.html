@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Han So Hee | Filmography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #000;
+    --ink: #f2f2ee;
+    --muted: #a9ada3;
+    --green: #8bb300;
+    --green-deep: #2f4a0a;
+    --line: #2a2d25;
+    --display: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+    --body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--ink); font-family: var(--body); line-height: 1.55; }
+  img { display: block; max-width: 100%; }
+  a { color: var(--green); }
+  :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+  section { scroll-margin-top: 72px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  /* Navigation */
+  .nav { position: sticky; top: 0; z-index: 10; background: rgba(0,0,0,.82); backdrop-filter: blur(8px); }
+  .nav .wrap { display: flex; gap: 10px; padding-top: 14px; padding-bottom: 14px; }
+  .pill {
+    font: 500 13px var(--body); color: var(--ink); text-decoration: none;
+    border: 1px solid #555; border-radius: 999px; padding: 6px 18px; background: #000;
+    transition: background .2s, color .2s, border-color .2s;
+  }
+  .pill:hover, .pill.active { background: var(--green); border-color: var(--green); color: #000; }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; min-height: 560px; }
+  .hero::before {
+    content: ""; position: absolute; right: -10%; top: -10%; width: 80%; height: 120%;
+    background: radial-gradient(closest-side, var(--green-deep), transparent 75%);
+  }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: end; min-height: 560px; padding-top: 48px; }
+  .hero h1 { font: 400 clamp(56px, 9vw, 104px)/0.95 var(--display); letter-spacing: .01em; }
+  .hero p { max-width: 38ch; color: var(--muted); margin-top: 16px; }
+  .hero-photo { align-self: stretch; display: flex; align-items: flex-end; justify-content: center; }
+  .hero-photo img { max-height: 560px; width: auto; object-fit: contain; }
+  .hero-photo .empty {
+    width: 100%; height: 100%; min-height: 320px; display: grid; place-items: center; text-align: center;
+    color: var(--muted); font-size: 14px; padding: 20px;
+  }
+
+  /* Personal information */
+  .info { padding: 56px 0; }
+  h2 { font: 400 clamp(36px, 6vw, 60px)/1 var(--display); }
+  .info h2 { font-size: 26px; margin-bottom: 14px; }
+  .info-row { display: flex; gap: 20px; align-items: flex-start; }
+  .portrait { width: 110px; aspect-ratio: 3/4; flex: none; background: linear-gradient(160deg, var(--green-deep), #0a0f03); object-fit: cover; }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 18px; font-size: 14px; }
+  dt { font-weight: 500; }
+  dd { color: var(--muted); }
+
+  /* Filmography intro */
+  .film-intro { padding: 72px 0 24px; }
+  .film-intro p { max-width: 60ch; color: var(--muted); margin-top: 14px; }
+
+  /* Poster grids */
+  .group { padding: 40px 0 24px; }
+  .group h2 { text-align: center; font-size: clamp(30px, 5vw, 44px); margin-bottom: 28px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 18px; }
+  .card { background: none; border: 0; color: inherit; font: inherit; text-align: center; cursor: pointer; }
+  .poster {
+    aspect-ratio: 2/3; width: 100%; display: grid; place-items: center; padding: 12px; overflow: hidden;
+    background: linear-gradient(170deg, #1f3306 0%, #070a02 100%); border: 1px solid var(--line);
+    font: 400 26px/1.05 var(--display); color: var(--green);
+    transition: border-color .2s, transform .2s;
+  }
+  .poster img { width: 100%; height: 100%; object-fit: cover; }
+  .card:hover .poster, .card:focus-visible .poster { border-color: var(--green); transform: translateY(-4px); }
+  .card strong { display: block; margin-top: 10px; font: 400 18px var(--display); letter-spacing: .03em; }
+  .card span.meta { display: block; font-size: 13px; color: var(--muted); }
+  .empty-note { grid-column: 1 / -1; text-align: center; color: var(--muted); font-size: 14px; }
+
+  footer { padding: 56px 0 40px; color: var(--muted); font-size: 13px; text-align: center; }
+
+  /* Detail dialog */
+  dialog {
+    margin: auto; width: min(680px, calc(100% - 32px)); max-height: calc(100% - 32px); overflow: auto;
+    background: #0a0c07; color: var(--ink); border: 1px solid var(--green); padding: 0;
+  }
+  dialog::backdrop { background: rgba(0,0,0,.78); }
+  .dlg { display: grid; grid-template-columns: 200px 1fr; gap: 22px; padding: 24px; }
+  .dlg .poster { cursor: default; }
+  .dlg h3 { font: 400 34px/1 var(--display); letter-spacing: .02em; }
+  .dlg .facts { color: var(--green); font-size: 14px; margin: 8px 0 12px; }
+  .dlg p { color: var(--muted); }
+  .close {
+    position: absolute; top: 8px; right: 8px; width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid #555; background: #000; color: var(--ink); font-size: 18px; cursor: pointer;
+  }
+  .close:hover { background: var(--green); color: #000; border-color: var(--green); }
+
+  @media (max-width: 760px) {
+    .hero .wrap { grid-template-columns: 1fr; min-height: 0; }
+    .hero-photo { order: -1; }
+    .hero-photo img { max-height: 380px; }
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .dlg { grid-template-columns: 1fr; }
+    .dlg .poster { max-width: 180px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="pill" href="#profile">Profile</a>
+    <a class="pill" href="#filmography">Filmography</a>
+    <a class="pill" href="#project">Project</a>
+  </div>
+</nav>
+
+<header class="hero" id="profile">
+  <div class="wrap">
+    <div>
+      <h1>Han So Hee</h1>
+      <p id="bio"></p>
+    </div>
+    <div class="hero-photo" id="heroPhoto"></div>
+  </div>
+</header>
+
+<section class="info" aria-labelledby="infoTitle">
+  <div class="wrap">
+    <h2 id="infoTitle">Personal information</h2>
+    <div class="info-row">
+      <div id="portraitSlot"></div>
+      <dl id="infoList"></dl>
+    </div>
+  </div>
+</section>
+
+<section class="film-intro" id="filmography">
+  <div class="wrap">
+    <h2>Filmography</h2>
+    <p id="filmIntro"></p>
+  </div>
+</section>
+
+<section class="group" aria-labelledby="moviesTitle">
+  <div class="wrap">
+    <h2 id="moviesTitle">Movies</h2>
+    <div class="grid" id="moviesGrid"></div>
+  </div>
+</section>
+
+<section class="group" aria-labelledby="seriesTitle">
+  <div class="wrap">
+    <h2 id="seriesTitle">Series</h2>
+    <div class="grid" id="seriesGrid"></div>
+  </div>
+</section>
+
+<section class="group" id="project" aria-labelledby="projectTitle">
+  <div class="wrap">
+    <h2 id="projectTitle">Project</h2>
+    <div class="grid" id="projectGrid"></div>
+  </div>
+</section>
+
+<footer><div class="wrap">Fan-made filmography page.</div></footer>
+
+<dialog id="detail" aria-labelledby="dlgTitle">
+  <button class="close" id="closeBtn" aria-label="Close">&times;</button>
+  <div class="dlg">
+    <div class="poster" id="dlgPoster"></div>
+    <div>
+      <h3 id="dlgTitle"></h3>
+      <div class="facts" id="dlgFacts"></div>
+      <p id="dlgText"></p>
+    </div>
+  </div>
+</dialog>
+
+<script>
+/* ============ EDIT YOUR CONTENT HERE ============
+   poster: paste an image link or a file path (e.g. "img/mother.jpg"). Leave "" to show a text tile.
+   Add a new film or series by copying one { ... } line into the right list. */
+
+const SITE = {
+  bio: "South Korean actress from Ulsan. Known for sharp, emotionally layered characters across melodrama, action, and thriller.",
+  heroImage: "",      // cutout photo for the top right, e.g. "img/hero.png"
+  portraitImage: "",  // small photo next to the personal information
+  info: [
+    ["Name", "Han So-hee"],
+    ["Hangul", "한소희"],
+    ["Born", "November 18, 1994"],
+    ["Birthplace", "Ulsan, South Korea"],
+    ["Instagram", '<a href="https://instagram.com/xeesoxee" target="_blank" rel="noopener">@xeesoxee</a>']
+  ],
+  filmIntro: "Select any poster to read a short note about the title, her character, and where it was released."
+};
+
+const MOVIES = [
+  { title: "Project Wolf Hunting", year: 2022, role: "", poster: "",
+    text: "A Korean action-horror film. Criminals are escorted by sea on a cargo ship, and their escape turns into a violent fight for survival." }
+];
+
+const SERIES = [
+  { title: "The World of the Married", year: 2020, role: "Yeo Da-kyung", poster: "",
+    text: "A JTBC drama about a marriage unraveling after an affair. Her breakout role: a young woman who becomes entangled with the husband." },
+  { title: "Nevertheless", year: 2021, role: "Yoo Na-bi", poster: "",
+    text: "A romance about an art student who tries to guard her feelings while falling for a charming classmate who avoids commitment." },
+  { title: "My Name", year: 2021, role: "Yoon Ji-woo", poster: "",
+    text: "A Netflix action thriller. After her father's murder, Ji-woo joins a crime organization and goes undercover in the police to find the killer." },
+  { title: "Soundtrack #1", year: 2022, role: "Lee Eun-su", poster: "",
+    text: "A short Disney+ romance about two longtime friends whose relationship shifts when they spend a few days together." },
+  { title: "Gyeongseong Creature", year: "2023–2024", role: "Yoon Chae-ok", poster: "",
+    text: "A Netflix period thriller set in 1945 Gyeongseong. Chae-ok searches for her missing mother and gets pulled into a hidden, monstrous secret." },
+  { title: "Dear X", year: 2025, role: "Baek Ah-jin", poster: "",
+    text: "A thriller about Ah-jin, who climbs out of a harsh past by manipulating the people around her, and the cost of that choice." }
+];
+
+const PROJECTS = [
+  /* Commercials, magazine covers, campaigns, etc. Example:
+  { title: "Brand campaign", year: 2024, role: "Ambassador", poster: "", text: "Short note." } */
+];
+
+/* ============ RENDERING (no need to edit) ============ */
+const $ = (id) => document.getElementById(id);
+const dlg = $("detail");
+
+$("bio").textContent = SITE.bio;
+$("filmIntro").textContent = SITE.filmIntro;
+
+$("heroPhoto").innerHTML = SITE.heroImage
+  ? `<img src="${SITE.heroImage}" alt="Han So Hee">`
+  : `<div class="empty">Add a cutout photo: set <code>heroImage</code> in the content section.</div>`;
+
+$("portraitSlot").innerHTML = SITE.portraitImage
+  ? `<img class="portrait" src="${SITE.portraitImage}" alt="Portrait of Han So Hee">`
+  : `<div class="portrait" role="img" aria-label="Portrait placeholder"></div>`;
+
+$("infoList").innerHTML = SITE.info.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
+
+function posterHTML(item) {
+  return item.poster
+    ? `<img src="${item.poster}" alt="Poster of ${item.title}" loading="lazy">`
+    : `<span>${item.title}</span>`;
+}
+
+function renderGrid(gridId, list, emptyMsg) {
+  const grid = $(gridId);
+  if (!list.length) { grid.innerHTML = `<p class="empty-note">${emptyMsg}</p>`; return; }
+  grid.innerHTML = list.map((item, i) => `
+    <button class="card" data-grid="${gridId}" data-i="${i}" aria-haspopup="dialog">
+      <div class="poster">${posterHTML(item)}</div>
+      <strong>${item.title}</strong>
+      <span class="meta">${item.year}</span>
+    </button>`).join("");
+}
+
+const LISTS = { moviesGrid: MOVIES, seriesGrid: SERIES, projectGrid: PROJECTS };
+renderGrid("moviesGrid", MOVIES, "Add titles in the MOVIES list.");
+renderGrid("seriesGrid", SERIES, "Add titles in the SERIES list.");
+renderGrid("projectGrid", PROJECTS, "Add commercials, campaigns, and other projects in the PROJECTS list.");
+
+let lastCard = null;
+document.addEventListener("click", (e) => {
+  const card = e.target.closest(".card");
+  if (!card) return;
+  const item = LISTS[card.dataset.grid][card.dataset.i];
+  $("dlgTitle").textContent = item.title;
+  $("dlgFacts").textContent = [item.year, item.role && "as " + item.role].filter(Boolean).join("  |  ");
+  $("dlgText").textContent = item.text;
+  $("dlgPoster").innerHTML = posterHTML(item);
+  lastCard = card;
+  dlg.showModal();
+});
+$("closeBtn").addEventListener("click", () => dlg.close());
+dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+dlg.addEventListener("close", () => lastCard && lastCard.focus());
+
+/* Highlight the nav pill for the section in view */
+const pills = [...document.querySelectorAll(".pill")];
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((en) => {
+    if (en.isIntersecting) {
+      pills.forEach((p) => p.classList.toggle("active", p.getAttribute("href") === "#" + en.target.id));
+    }
+  });
+}, { rootMargin: "-40% 0px -55% 0px" });
+["profile", "filmography", "project"].forEach((id) => io.observe($(id)));
+</script>
+</body>
+</html>
