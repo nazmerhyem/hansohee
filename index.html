@@ -29,10 +29,14 @@
 
   /* Navigation */
   .nav { position: sticky; top: 0; z-index: 10; background: rgba(0,0,0,.82); backdrop-filter: blur(8px); }
-  .nav .wrap { display: flex; gap: 10px; padding-top: 14px; padding-bottom: 14px; }
+  .nav .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; padding-top: 16px; padding-bottom: 16px; }
+.pills { display: flex; gap: 10px; }
+.nav-title { font: 400 24px var(--display); letter-spacing: .08em; text-align: center; }
+.contact { justify-self: end; background: var(--green); border-color: var(--green); color: #000; }
+.contact:hover { background: #000; color: var(--green); }
   .pill {
-    font: 500 13px var(--body); color: var(--ink); text-decoration: none;
-    border: 1px solid #555; border-radius: 999px; padding: 6px 18px; background: #000;
+    font: 500 15px var(--body); color: var(--ink); text-decoration: none;
+    border: 1px solid #555; border-radius: 999px; padding: 9px 24px; background: #000;
     transition: background .2s, color .2s, border-color .2s;
   }
   .pill:hover, .pill.active { background: var(--green); border-color: var(--green); color: #000; }
@@ -111,6 +115,9 @@
     .grid { grid-template-columns: repeat(2, 1fr); }
     .dlg { grid-template-columns: 1fr; }
     .dlg .poster { max-width: 180px; }
+        .nav .wrap { grid-template-columns: 1fr auto; }
+        .nav-title { grid-column: 1 / -1; order: -1; }
+        .pill { padding: 8px 14px; font-size: 14px; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -122,9 +129,13 @@
 
 <nav class="nav" aria-label="Main">
   <div class="wrap">
-    <a class="pill" href="#profile">Profile</a>
-    <a class="pill" href="#filmography">Filmography</a>
-    <a class="pill" href="#project">Project</a>
+    <div class="pills">
+      <a class="pill" href="#profile">Profile</a>
+      <a class="pill" href="#filmography">Filmography</a>
+      <a class="pill" href="#project">Project</a>
+    </div>
+    <div class="nav-title">Han So Hee, The Muse</div>
+    <a class="pill contact" href="https://t.me/SoheeHanBot" target="_blank" rel="noopener">Contact</a>
   </div>
 </nav>
 
